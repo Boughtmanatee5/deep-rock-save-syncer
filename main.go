@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	app "github.com/boughtmanatee5/deep-rock-save-syncer"
+	"github.com/Boughtmanatee5/deep-rock-save-syncer/app"
 )
 
 const (
@@ -21,9 +21,15 @@ func main() {
 
 	configPath := fmt.Sprintf("%s/.deepRockSyncConfig", homeDir)
 
-	app := app.New(configPath)
+	app := app.NewApp(configPath)
 
 	app.Start()
+
+	promptError := app.HomePrompt()
+	if promptError != nil {
+		fmt.Printf("Error with home prompt %s", promptError)
+		os.Exit(EXIT_ERROR)
+	}
 
 	os.Exit(EXIT_SUCCESS)
 }
