@@ -93,8 +93,8 @@ func (a *App) HomePrompt(ctx context.Context) error {
 
 		break
 	case 1:
-		a.logger.Printf(ctx, "Backing up xbox save")
-		backupErr := backupFile(a.config.XboxSavePath)
+		a.logger.Printf(ctx, "Backing up steam save")
+		backupErr := backupFile(a.config.SteamSavePath)
 		if backupErr != nil {
 			return fmt.Errorf("Error backing up save %w", backupErr)
 		}
@@ -106,11 +106,11 @@ func (a *App) HomePrompt(ctx context.Context) error {
 		break
 	case 2:
 		a.logger.Printf(ctx, "Backing up xbox save")
-		backupErr := backupFile(a.config.SteamSavePath)
+		backupErr := backupFile(a.config.XboxSavePath)
 		if backupErr != nil {
 			return fmt.Errorf("Error backing up save %w", backupErr)
 		}
-		a.logger.Printf(ctx, "Copying xbox save to steam")
+		a.logger.Printf(ctx, "Copying steam save to xbox")
 		replaceErr := replaceFile(a.config.SteamSavePath, a.config.XboxSavePath)
 		if replaceErr != nil {
 			return fmt.Errorf("Error replacing save file %w", replaceErr)
